@@ -1,0 +1,29 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+int main(){
+srand (static_cast<unsigned int>(time(0)));
+int numberToGuess = rand()%100+1;
+int guess;
+bool guessed =false;
+  int attempts =0;
+const int maxAttempts =5;
+while (!guessed && attempts < maxAttempts){
+  std::cout<<"Please guess a number between 1 to 100:";
+  std::cin>>guess;
+  attempts ++;
+  if(guess==numberToGuess){
+    std::cout<<"Congratulations! You Guessed A Correct Number.\n";
+    guessed=true;
+    }else if (guess < numberToGuess){
+    std::cout<<"Your Guess is too low . Try Again.\n";
+    }else{
+    std::cout<<"Your Guess is too high. Try Again.\n";
+    }
+  }
+  if(!guessed){
+    std::cout<<"Sorry!You went out of attempts.The correct number was"<<numberToGuess<<".\n";
+    }
+  return 0;
+  }
+  
