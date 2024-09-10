@@ -1,0 +1,131 @@
+#include <iostream>
+#include <vector>
+#include <string>
+struct Task{
+std:: string description;
+bool completed;
+};
+void addTask(std::vector<Task>&tasks)
+{
+  Task newTask;
+  std::cout<<"Enter the task description:";
+  std::getline(std::cin,newTask.description);
+  newTask.completed=false;
+  tasks.push_back(newTask);
+  std::cout<<"Task added successfully!"<<std::endl;
+}
+void viewTasks (const std::vector<Task>&tasks){
+  if (tasks.empty()){
+    std::cout<<"No tasks available."<<std::endl;
+    return;
+   }
+  std::cout<<"Task List:" <<std::endl;
+  for (size_t i=0; i<tasks.size();++i){
+    std::cout<<(i+1)<<"."<<tasks[i].description;
+    if (tasks[i].completed){
+      std::cout<<"(completed)";
+    }else{
+      std::cout<<"(pending)";
+    }
+    std::cout<<std::endl;
+  }
+    }
+void markTaskAsCompleted (std::vector<Task>&tasks){
+  if (tasks.empty()){
+    std::cout<<"No tasks available."<<std::endl;
+    return;
+  }
+  int taskNumber;
+std::cout<<"Enter task number to mark as completed:";
+  std::cin>>taskNumber;
+  taskNumber--;
+  if(taskNumber>=0&&taskNumber<tasks.size())
+  {
+    tasks[taskNumber].completed=true;
+    std::cout<<"Task marked as completed."<<std::endl;
+    }else{
+    std::cout<<"Invalid task number."<<std::endl;
+    }
+}
+void removeTask (std::vector<Task>&tasks){
+  if (tasks.empty()){
+    std::cout<<"No tasks available."<<std::endl;
+    return;
+  }
+  int taskNumber;
+  std::cout<<"Enter task number to remove:";
+  std::cin>>taskNumber;
+  taskNumber--;
+  if(taskNumber>=0&&taskNumber<tasks.size()){
+    tasks.erase(tasks.begin()+taskNumber);
+    std::cout<<"Task removed successfully."<<std::endl;
+    }else{
+    std::cout<<"Invalid task number."<<std::endl;
+    }
+    }
+  void searchTasks(const std::vector<Task>&tasks){
+    if (tasks.empty()){
+      std::cout<<"No tasks available."<<std::endl;
+    return;
+    }
+    std:: string searchQuery;
+    std::cout<<"Enter search query:";
+    std::getline(std::cin,searchQuery);
+    bool found=false;
+    std::cout<<"Search results:"<<std::endl;
+    for(size_t i=0; i<tasks.size();++i){
+      if(tasks[i].description.find(searchQuery)!=std::string::npos){
+        std::cout<<(i+1)<<"."<<tasks[i].description;
+      if (tasks[i].completed){
+        std::cout<<"(completed)";
+      }else{
+        std::cout<<"(pending)";}
+     std::cout<<std::endl;
+        found=true;
+      }
+  } 
+    if(!found){
+      std::cout<<"No tasks found matching the search query."<<std::endl;
+    }
+  }
+int main(){
+  std::vector<Task>tasks;
+  int choice;
+  while(true){
+    std::cout<<"To-Do List Manager"<<std::endl;
+    std::cout<<"-----------------"<<std::endl;
+    std::cout<<"1.Add task"<<std::endl;
+    std::cout<<"2.View tasks"<<std::endl;
+    std::cout<<"3.Mark task as completed"<<std::endl;
+    std::cout<<"4.Remove task"<<std::endl;
+    std::cout<<"5.Search tasks"<<std::endl;
+    std::cout<<"6.Exit"<<std::endl;
+    std::cout<<"Enter your choice:";
+    std::cin>>choice;
+    switch(choice){
+      case 1:
+      addTask(tasks);break;
+      case 2:
+      viewTasks(tasks);break;
+      case 3:
+       markTaskAsCompleted(tasks);break;
+      case 4:
+      removeTask(tasks);break;
+      case 5:
+      searchTasks(tasks);break;
+      case 6:
+      std::cout<<"Exiting..."<<std::endl;
+      return 0;
+      default:
+      std::cout<<"Invalid choice.Please try again."<<std::endl;
+    }
+    std::cout<<std::endl;
+  }
+  return 0;
+}
+
+
+
+
+
+
